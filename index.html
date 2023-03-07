@@ -12,7 +12,68 @@
         return computer_choice
     }
 
-    console.log(getComputerChoice())
+    function capitalize(str){
+        var strlower = str.toLowerCase();
+        var capstr = strlower.charAt(0).toUpperCase() + strlower.slice(1);
+        if (capstr != 'Rock' && capstr != 'Scissors' && capstr != 'Paper'){
+            return 'That is not a valid option. Please select rock, paper, or scissors.'
+        }
+        return capstr
+    }
+
+    function playRound(){
+        computer_choice = getComputerChoice()
+        let playerSelection = prompt("Please enter your choice (rock, paper, or scissors).");
+        playerSelection = capitalize(playerSelection);
+        console.log(playerSelection + ' ' + 'was your choice.');
+
+        if(computer_choice == playerSelection){ //makes sure that there is no tie 
+            while (computer_choice == playerSelection){
+                computer_choice = getComputerChoice();
+            }
+        }
+        console.log(computer_choice + ' ' + 'was the computer\'s choice.');
+
+        if (computer_choice =='Rock' && playerSelection =='Paper'){ 
+            return 'You win! Paper beats rock'
+        }else if (computer_choice =='Paper' && playerSelection =='Scissors'){
+            return 'You win! Scissors beats paper'
+        }else if (computer_choice =='Scissors' && playerSelection =='Rock'){
+            return 'You win! Rock beats scissors' 
+        }else if (computer_choice =='Rock' && playerSelection =='Scissors'){
+            return 'You lose! Rock beats scissors'
+        }else if (computer_choice =='Paper' && playerSelection =='Rock'){
+            return 'You lose! Paper beats rock' 
+        }else if (computer_choice =='Scissors' && playerSelection =='Paper'){
+            return 'You lose! Scissors beats paper'
+        }else{
+            return 'You tied'//vestigial..rendered unnecessary by the above while loop
+        }
+    }
+
+    function game(){
+        let win = 0
+        let lose = 0
+        for (let i = 0; i < 5; i++){
+            let result = playRound();
+            console.log(result);
+            let wongame = result.includes('win');
+            if (wongame){
+                win++;
+            }else{
+                lose++;
+            }
+        }
+
+        if (win >= 3){
+            return 'You won the game!'
+        }else{
+            return 'You lost the game.'
+        }
+    }
+    
+    console.log(game())
+
   </script>
 </body>
 </html>
